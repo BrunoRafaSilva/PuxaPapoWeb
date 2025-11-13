@@ -31,7 +31,7 @@ async function ApiConnection(data: IApiConnection) {
 
     const result = await response.json();
     console.log("Resultado da API:", result);
-    return result.response;
+    return result.response.iaResponse;
   } catch (error) {
     console.error("Erro na ApiConnection:", error);
     throw error;
