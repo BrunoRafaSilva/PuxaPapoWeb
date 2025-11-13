@@ -21,7 +21,7 @@ async function ApiConnection(data: IApiConnection) {
     };
 
     const response = await fetch(
-      "http://localhost:5182/api/chat/chatRequest",
+      "http://localhost:5182/api/chat/tips-deep-seek",
       requestOptions
     );
 
