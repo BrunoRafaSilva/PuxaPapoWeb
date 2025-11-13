@@ -7,9 +7,9 @@ interface IApiConnection {
 async function ApiConnection(data: IApiConnection) {
   try {
     const bodyContent = JSON.stringify({
-      Interesses: data.interest,
-      periodo: data.period,
-      tom: data.tone,
+      interest: data.interest,
+      period: data.period,
+      tone: data.tone,
     });
 
     const requestOptions: RequestInit = {
