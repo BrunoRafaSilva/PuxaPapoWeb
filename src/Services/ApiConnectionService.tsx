@@ -7,7 +7,7 @@ interface IApiConnection {
 class ApiConnectionService {
   private baseUrl: string;
 
-  constructor(baseUrl: string = "http://localhost:5182/api") {
+  constructor(baseUrl: string = "https://puxa-papo-api-azd7avc5fpfyc6fp.brazilsouth-01.azurewebsites.net/api") {
     this.baseUrl = baseUrl;
   }
 
