@@ -158,7 +158,11 @@ function Index() {
 
   return (
     <div className="min-h-screen w-full flex flex-col">
-      <Header headerTitle="PuxaPapo" headerSubtitle="Welcome to PuxaPapo" />
+      <Header
+        headerTitle="PuxaPapo"
+        headerSubtitle1="Não sabe como puxar papo? Nós ajudamos!"
+        headerSubtitle2="Só preencher os campos abaixo!"
+      />
       <main className="flex-1 flex justify-center bg-gray-100">
         <div className="w-[90%] max-w-[80%]">
           <div>
