@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChipSelect } from "../Components/ChipSelect";
 import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
+import { ApiStatus } from "../Components/ApiStatus";
 import Card from "@mui/material/Card";
 import { Alert, Button, Modal, Snackbar, Typography } from "@mui/material";
-import { ApiConnection } from "../Services/ApiConnection";
+import { ApiConnection } from "../Services/ApiConnectionService";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -53,6 +54,39 @@ function Index() {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     "success" | "error" | "warning" | "info"
   >("success");
+  const [apiStatus, setApiStatus] = useState<"online" | "offline" | "checking">(
+    "checking"
+  );
+  const healthCheckIntervalRef = useRef<number>(30000);
+  const timeoutIdRef = useRef<number | null>(null);
+
+  const checkApiHealth = async () => {
+    try {
+      const isOnline = await ApiConnection.checkHealth();
+      setApiStatus(isOnline ? "online" : "offline");
+    } catch {
+      setApiStatus("offline");
+    }
+  };
+
+  useEffect(() => {
+    const scheduleNextCheck = () => {
+      checkApiHealth();
+
+      timeoutIdRef.current = setTimeout(() => {
+        healthCheckIntervalRef.current += 60000;
+        scheduleNextCheck();
+      }, healthCheckIntervalRef.current);
+    };
+
+    scheduleNextCheck();
+
+    return () => {
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
+    };
+  }, []);
 
   const handleInterestSelect = (value: string) => {
     setSelectedInterests((prev) =>
@@ -105,13 +139,16 @@ function Index() {
 
       console.log("Dados enviados para API:", apiData);
 
-      const result = await ApiConnection(apiData);
+      const result = await ApiConnection.generatePrompt(apiData);
 
       console.log("Resposta da API:", result);
       setApiResult(result);
       setShowModal(true);
+      setApiStatus("online");
+      healthCheckIntervalRef.current = 30000;
       showSnackbar("Mensagem gerada com sucesso!", "success");
     } catch (error) {
+      setApiStatus("offline");
       showSnackbar("Erro ao gerar mensagem. Tente novamente.", "error");
       console.error("Erro:", error);
     } finally {
@@ -121,7 +158,11 @@ function Index() {
 
   return (
     <div className="min-h-screen w-full flex flex-col">
-      <Header headerTitle="PuxaPapo" headerSubtitle="Welcome to PuxaPapo" />
+      <Header
+        headerTitle="PuxaPapo"
+        headerSubtitle1="Não sabe como puxar papo? Nós ajudamos!"
+        headerSubtitle2="Só preencher os campos abaixo!"
+      />
       <main className="flex-1 flex justify-center bg-gray-100">
         <div className="w-[90%] max-w-[80%]">
           <div>
@@ -205,6 +246,8 @@ function Index() {
           {snackbarMessage}
         </Alert>
       </Snackbar>
+
+      <ApiStatus status={apiStatus} />
     </div>
   );
 }
