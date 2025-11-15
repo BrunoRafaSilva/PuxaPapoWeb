@@ -4,10 +4,10 @@ import { ChipSelect } from "../Components/ChipSelect";
 import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
 import { ApiStatus } from "../Components/ApiStatus";
-import { ResultModal } from "../Components/ResultModal";
 import Card from "@mui/material/Card";
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Alert, Box, Button, Modal, Snackbar, Typography } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 import "flag-icons/css/flag-icons.min.css";
 import { LANGUAGE_OPTIONS } from "../Constants/ConstantLanguageOptions";
 import {
@@ -16,6 +16,7 @@ import {
   TONE_OPTIONS,
 } from "../Constants/ConstantLabelsOptions";
 import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
+import { FaLinkedin } from "react-icons/fa";
 
 function Index() {
   const { t, i18n } = useTranslation();
@@ -43,6 +44,21 @@ function Index() {
   );
   const [selectedLanguage, setSelectedLanguage] = useState<string>("pt-BR");
   const healthCheckIntervalRef = useRef<number>(30000);
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
+    maxWidth: 800,
+    maxHeight: "80vh",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 2,
+    overflow: "auto",
+  } as const;
 
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
@@ -208,6 +224,7 @@ function Index() {
                     className="mt-4"
                     type="submit"
                     disabled={loading}
+                    fullWidth
                   >
                     {loading
                       ? t("form.generating.title")
@@ -219,11 +236,45 @@ function Index() {
           </div>
         </div>
       </main>
-      <ResultModal
+
+      <footer className="w-full text-center p-8 text-sm bg-transparent">
+        <FaLinkedin />
+      </footer>
+
+      <Modal
         open={showModal}
         onClose={() => setShowModal(false)}
-        content={apiResult}
-      />
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box sx={modalStyle}>
+          <Typography
+            id="modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ mb: 2 }}
+          >
+            {t("modal.title")}
+          </Typography>
+          <Box sx={{ mb: 3 }}>
+            <MarkdownPreview
+              source={apiResult}
+              style={{
+                padding: 0,
+                backgroundColor: "white",
+                color: "black",
+              }}
+            />
+          </Box>
+          <Button
+            fullWidth
+            onClick={() => setShowModal(false)}
+            variant="contained"
+          >
+            {t("modal.closeButton")}
+          </Button>
+        </Box>
+      </Modal>
 
       <Snackbar
         open={snackbarOpen}
