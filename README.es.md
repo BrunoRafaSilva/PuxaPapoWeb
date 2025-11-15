@@ -5,6 +5,7 @@
 ![PuxaPapo Logo](https://img.shields.io/badge/PuxaPapo-Web-blue?style=for-the-badge)
 
 ## [PuxaPapo Site](https://puxa-papo.vercel.app/)
+## [PuxaPapo API](https://github.com/BrunoRafaSilva/PuxaPapoApi/)
 
 **Idiomas / Languages / Idiomas:**
 [🇧🇷 Português](README.md) | [🇺🇸 English](README.en.md) | [🇪🇸 Español](README.es.md)
