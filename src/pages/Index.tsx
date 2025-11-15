@@ -8,37 +8,12 @@ import { Alert, Button, Modal, Snackbar, Typography } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-const interestOptions = [
-  { value: "futebol", label: "Futebol", emoji: "⚽" },
-  { value: "churrasco", label: "Churrasco", emoji: "🍖" },
-  { value: "cerveja", label: "Cerveja", emoji: "🍺" },
-  { value: "praia", label: "Praia", emoji: "🏖️" },
-  { value: "cinema", label: "Cinema", emoji: "🎬" },
-  { value: "música", label: "Música", emoji: "🎵" },
-  { value: "jogos", label: "Jogos", emoji: "🎮" },
-  { value: "café", label: "Café", emoji: "☕" },
-];
-
-const periodOptions = [
-  { value: "qualquer dia da semana", label: "Qualquer dia da semana" },
-  { value: "segunda a sexta", label: "Segunda a Sexta" },
-  { value: "fim de semana", label: "Fim de Semana" },
-  { value: "a noite", label: "À Noite" },
-  { value: "na folga dele", label: "Na Folga Dele" },
-];
-
-const toneOptions = [
-  { value: "engraçado e descontraído", label: "Engraçado e Descontraído" },
-  { value: "engraçado", label: "Engraçado" },
-  { value: "formal", label: "Formal" },
-  {
-    value: "anuncio de radio",
-    label: "Anúncio de Rádio",
-    tooltip:
-      "Dê um toque de humor e peça como se fosse a chamada de rádio para um evento",
-  },
-];
+import {
+  INTEREST_OPTIONS,
+  PERIOD_OPTIONS,
+  TONE_OPTIONS,
+} from "../Constants/ConstantLabelsOptions";
+import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
 
 function Index() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -119,12 +94,12 @@ function Index() {
     event.preventDefault();
 
     if (selectedInterests.length === 0) {
-      showSnackbar("Por favor, selecione pelo menos um interesse!", "warning");
+      showSnackbar(SNACK_BAR_MESSAGES.PLEASE_SELECT_INTEREST, "warning");
       return;
     }
 
     if (selectedTone.length === 0) {
-      showSnackbar("Por favor, selecione um tom para a mensagem!", "warning");
+      showSnackbar(SNACK_BAR_MESSAGES.PLEASE_SELECT_TONE, "warning");
       return;
     }
 
@@ -137,19 +112,16 @@ function Index() {
         tone: selectedTone[0] || "",
       };
 
-      console.log("Dados enviados para API:", apiData);
-
       const result = await ApiConnection.generatePrompt(apiData);
 
-      console.log("Resposta da API:", result);
       setApiResult(result);
       setShowModal(true);
       setApiStatus("online");
       healthCheckIntervalRef.current = 30000;
-      showSnackbar("Mensagem gerada com sucesso!", "success");
+      showSnackbar(SNACK_BAR_MESSAGES.MESSAGE_SUCCESS, "success");
     } catch (error) {
       setApiStatus("offline");
-      showSnackbar("Erro ao gerar mensagem. Tente novamente.", "error");
+      showSnackbar(SNACK_BAR_MESSAGES.API_ERROR, "error");
       console.error("Erro:", error);
     } finally {
       setLoading(false);
@@ -168,37 +140,37 @@ function Index() {
           <div>
             <Card className="p-4">
               <form onSubmit={handleSubmit}>
-                <Typography className="p-4">
+                <div className="p-4">
                   <LabelOption title="Interesses" />
-                </Typography>
-                <Typography className="p-2">
+                </div>
+                <div className="p-2">
                   <ChipSelect
-                    options={interestOptions}
+                    options={INTEREST_OPTIONS}
                     selected={selectedInterests}
                     onSelect={handleInterestSelect}
                   />
-                </Typography>
-                <Typography className="p-4">
+                </div>
+                <div className="p-4">
                   <LabelOption title="Horário" />
-                </Typography>
-                <Typography className="p-2">
+                </div>
+                <div className="p-2">
                   <ChipSelect
-                    options={periodOptions}
+                    options={PERIOD_OPTIONS}
                     selected={selectedPeriod}
                     onSelect={handlePeriodSelect}
                   />
-                </Typography>
-                <Typography className="p-4">
+                </div>
+                <div className="p-4">
                   <LabelOption title="Tom da mensagem" />
-                </Typography>
-                <Typography className="p-2">
+                </div>
+                <div className="p-2">
                   <ChipSelect
-                    options={toneOptions}
+                    options={TONE_OPTIONS}
                     selected={selectedTone}
                     onSelect={handleToneSelect}
                   />
-                </Typography>
-                <Typography className="pt-6 p-2 flex justify-center">
+                </div>
+                <div className="pt-6 p-2 flex justify-center">
                   <Button
                     variant="contained"
                     color="primary"
@@ -208,7 +180,7 @@ function Index() {
                   >
                     {loading ? "Gerando..." : "Gerar Mensagem"}
                   </Button>
-                </Typography>
+                </div>
               </form>
             </Card>
           </div>
