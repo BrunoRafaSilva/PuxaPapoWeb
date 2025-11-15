@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { ChipSelect } from "../Components/ChipSelect";
 import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
@@ -9,15 +10,38 @@ import { ApiConnection } from "../Services/ApiConnectionService";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "flag-icons/css/flag-icons.min.css";
-import {
-  INTEREST_OPTIONS,
-  PERIOD_OPTIONS,
-  TONE_OPTIONS,
-} from "../Constants/ConstantLabelsOptions";
-import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
 import { LANGUAGE_OPTIONS } from "../Constants/ConstantLanguageOptions";
 
 function Index() {
+  const { t, i18n } = useTranslation();
+
+  const interestOptions = [
+    { value: "1", label: t("form.interests.option1"), emoji: "⚽" },
+    { value: "2", label: t("form.interests.option2"), emoji: "🍖" },
+    { value: "3", label: t("form.interests.option3"), emoji: "🍺" },
+    { value: "4", label: t("form.interests.option4"), emoji: "🏖️" },
+    { value: "5", label: t("form.interests.option5"), emoji: "🎬" },
+    { value: "6", label: t("form.interests.option6"), emoji: "🎵" },
+    { value: "7", label: t("form.interests.option7"), emoji: "🎮" },
+    { value: "8", label: t("form.interests.option8"), emoji: "☕" },
+  ];
+  const periodOptions = [
+    { value: "1", label: t("form.period.option1") },
+    { value: "2", label: t("form.period.option2") },
+    { value: "3", label: t("form.period.option3") },
+    { value: "4", label: t("form.period.option4") },
+    { value: "5", label: t("form.period.option5") },
+  ];
+  const toneOptions = [
+    { value: "1", label: t("form.tone.option1") },
+    { value: "2", label: t("form.tone.option2") },
+    { value: "3", label: t("form.tone.option3") },
+    {
+      value: "4",
+      label: t("form.tone.option4"),
+      tooltip: t("form.tone.option4ToolTip"),
+    },
+  ];
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string[]>([
     "qualquer dia da semana",
@@ -36,6 +60,10 @@ function Index() {
   );
   const [selectedLanguage, setSelectedLanguage] = useState<string>("pt-BR");
   const healthCheckIntervalRef = useRef<number>(30000);
+
+  useEffect(() => {
+    i18n.changeLanguage(selectedLanguage);
+  }, [selectedLanguage, i18n]);
   const timeoutIdRef = useRef<number | null>(null);
 
   const checkApiHealth = async () => {
@@ -97,12 +125,12 @@ function Index() {
     event.preventDefault();
 
     if (selectedInterests.length === 0) {
-      showSnackbar(SNACK_BAR_MESSAGES.PLEASE_SELECT_INTEREST, "warning");
+      showSnackbar(t("messages.selectInterest"), "warning");
       return;
     }
 
     if (selectedTone.length === 0) {
-      showSnackbar(SNACK_BAR_MESSAGES.PLEASE_SELECT_TONE, "warning");
+      showSnackbar(t("messages.selectTone"), "warning");
       return;
     }
 
@@ -121,10 +149,10 @@ function Index() {
       setShowModal(true);
       setApiStatus("online");
       healthCheckIntervalRef.current = 30000;
-      showSnackbar(SNACK_BAR_MESSAGES.MESSAGE_SUCCESS, "success");
+      showSnackbar(t("messages.success"), "success");
     } catch (error) {
       setApiStatus("offline");
-      showSnackbar(SNACK_BAR_MESSAGES.API_ERROR, "error");
+      showSnackbar(t("messages.apiError"), "error");
       console.error("Erro:", error);
     } finally {
       setLoading(false);
@@ -134,9 +162,9 @@ function Index() {
   return (
     <div className="min-h-screen w-full flex flex-col">
       <Header
-        headerTitle="PuxaPapo"
-        headerSubtitle1="Não sabe como puxar papo? Nós ajudamos!"
-        headerSubtitle2="Só preencher os campos abaixo!"
+        headerTitle={t("header.title")}
+        headerSubtitle1={t("header.subtitle1")}
+        headerSubtitle2={t("header.subtitle2")}
       />
       <main className="flex-1 flex justify-center bg-gray-100">
         <div className="w-[90%] max-w-[80%]">
@@ -160,31 +188,31 @@ function Index() {
                   ))}
                 </div>
                 <div className="p-4 -mt-6">
-                  <LabelOption title="Interesses" />
+                  <LabelOption title={t("form.interests.title")} />
                 </div>
                 <div className="p-2">
                   <ChipSelect
-                    options={INTEREST_OPTIONS}
+                    options={interestOptions}
                     selected={selectedInterests}
                     onSelect={handleInterestSelect}
                   />
                 </div>
                 <div className="p-4">
-                  <LabelOption title="Horário" />
+                  <LabelOption title={t("form.period.title")} />
                 </div>
                 <div className="p-2">
                   <ChipSelect
-                    options={PERIOD_OPTIONS}
+                    options={periodOptions}
                     selected={selectedPeriod}
                     onSelect={handlePeriodSelect}
                   />
                 </div>
                 <div className="p-4">
-                  <LabelOption title="Tom da mensagem" />
+                  <LabelOption title={t("form.tone.title")} />
                 </div>
                 <div className="p-2">
                   <ChipSelect
-                    options={TONE_OPTIONS}
+                    options={toneOptions}
                     selected={selectedTone}
                     onSelect={handleToneSelect}
                   />
@@ -197,7 +225,7 @@ function Index() {
                     type="submit"
                     disabled={loading}
                   >
-                    {loading ? "Gerando..." : "Gerar Mensagem"}
+                    {loading ? t("form.generating.title") : t("form.generateButton.title")}
                   </Button>
                 </div>
               </form>
@@ -208,7 +236,7 @@ function Index() {
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg max-w-2xl max-h-[80vh] overflow-y-auto">
           <Typography variant="h6" className="mb-4">
-            Mensagem Gerada
+            {t("modal.title")}
           </Typography>
           <div className="mb-4 whitespace-pre-line bg-gray-50 p-4 rounded border">
             <Typography style={{ whiteSpace: "pre-line" }}>
@@ -217,7 +245,7 @@ function Index() {
             </Typography>
           </div>
           <Button onClick={() => setShowModal(false)} variant="contained">
-            Fechar
+            {t("modal.closeButton")}
           </Button>
         </div>
       </Modal>

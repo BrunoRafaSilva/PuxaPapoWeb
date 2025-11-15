@@ -1,30 +1,31 @@
+import { t } from "i18next";
+
 export const INTEREST_OPTIONS = [
-  { value: "1", label: "Futebol", emoji: "⚽" },
-  { value: "2", label: "Churrasco", emoji: "🍖" },
-  { value: "3", label: "Cerveja", emoji: "🍺" },
-  { value: "4", label: "Praia", emoji: "🏖️" },
-  { value: "5", label: "Cinema", emoji: "🎬" },
-  { value: "6", label: "Música", emoji: "🎵" },
-  { value: "7", label: "Jogos", emoji: "🎮" },
-  { value: "8", label: "Café", emoji: "☕" },
+  { value: "1", label: t("form.interests.option1"), emoji: "⚽" },
+  { value: "2", label: t("form.interests.option2"), emoji: "🍖" },
+  { value: "3", label: t("form.interests.option3"), emoji: "🍺" },
+  { value: "4", label: t("form.interests.option4"), emoji: "🏖️" },
+  { value: "5", label: t("form.interests.option5"), emoji: "🎬" },
+  { value: "6", label: t("form.interests.option6"), emoji: "🎵" },
+  { value: "7", label: t("form.interests.option7"), emoji: "🎮" },
+  { value: "8", label: t("form.interests.option8"), emoji: "☕" },
 ];
 
 export const PERIOD_OPTIONS = [
-  { value: "1", label: "Qualquer dia da semana" },
-  { value: "2", label: "Segunda a Sexta" },
-  { value: "3", label: "Fim de Semana" },
-  { value: "4", label: "À Noite" },
-  { value: "5", label: "Na Folga Dele" },
+  { value: "1", label: t("form.period.option1") },
+  { value: "2", label: t("form.period.option2") },
+  { value: "3", label: t("form.period.option3") },
+  { value: "4", label: t("form.period.option4") },
+  { value: "5", label: t("form.period.option5") },
 ];
 
 export const TONE_OPTIONS = [
-  { value: "1", label: "Engraçado e Descontraído" },
-  { value: "2", label: "Engraçado" },
-  { value: "3", label: "Formal" },
+  { value: "1", label: t("form.tone.option1") },
+  { value: "2", label: t("form.tone.option2") },
+  { value: "3", label: t("form.tone.option3") },
   {
     value: "4",
-    label: "Anúncio de Rádio",
-    tooltip:
-      "Dê um toque de humor e peça como se fosse a chamada de rádio para um evento",
+    label: t("form.tone.option4"),
+    tooltip: t("form.tone.option4Tooltip"),
   },
 ];

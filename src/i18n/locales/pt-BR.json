@@ -1,0 +1,52 @@
+{
+  "header": {
+    "title": "PuxaPapo",
+    "subtitle1": "Não sabe como puxar papo? Nós ajudamos!",
+    "subtitle2": "Só preencher os campos abaixo!"
+  },
+  "form": {
+    "interests": {
+      "title": "Interesses",
+      "option1": "Futebol",
+      "option2": "Churrasco",
+      "option3": "Cerveja",
+      "option4": "Praia",
+      "option5": "Cinema",
+      "option6": "Música",
+      "option7": "Jogos",
+      "option8": "Café"
+    },
+    "period": {
+      "title": "Horário",
+      "option1": "Qualquer dia da semana",
+      "option2": "Segunda a Sexta",
+      "option3": "Fim de Semana",
+      "option4": "À Noite",
+      "option5": "Na Folga Dele"
+    },
+    "tone": {
+      "title": "Tom da mensagem",
+      "option1": "Engraçado e Descontraído",
+      "option2": "Engraçado",
+      "option3": "Formal",
+      "option4": "Anúncio de Rádio",
+      "option4ToolTip": "Dê um toque de humor e peça como se fosse a chamada de rádio para um evento"
+    },
+    "generateButton": {
+      "title": "Gerar Mensagem"
+    },
+    "generating": {
+      "title": "Gerando..."
+    }
+  },
+  "modal": {
+    "title": "Mensagem Gerada",
+    "closeButton": "Fechar"
+  },
+  "messages": {
+    "selectInterest": "Por favor, selecione pelo menos um interesse.",
+    "selectTone": "Por favor, selecione o tom da mensagem.",
+    "success": "Mensagem gerada com sucesso!",
+    "apiError": "Erro ao gerar mensagem. Tente novamente."
+  }
+}
