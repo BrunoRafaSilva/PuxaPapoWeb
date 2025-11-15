@@ -1,0 +1,52 @@
+{
+  "header": {
+    "title": "PuxaPapo",
+    "subtitle1": "Don't know how to start a conversation? We help!",
+    "subtitle2": "Just fill in the fields below!"
+  },
+  "form": {
+    "interests": {
+      "title": "Interests",
+      "option1": "Football",
+      "option2": "Barbecue",
+      "option3": "Beer",
+      "option4": "Beach",
+      "option5": "Cinema",
+      "option6": "MMusic",
+      "option7": "Games",
+      "option8": "Coffee"
+    },
+    "period": {
+      "title": "Time",
+      "option1": "Any day of the week",
+      "option2": "Monday to Friday",
+      "option3": "Weekend",
+      "option4": "At Night",
+      "option5": "On His Day Off"
+    },
+    "tone": {
+      "title": "Message Tone",
+      "option1": "Funny and Relaxed",
+      "option2": "Funny",
+      "option3": "Formal",
+      "option4": "Radio Advertisement",
+      "option4ToolTip": "Add a touch of humor and ask as if it were a radio call for an event"
+    },
+    "generateButton": {
+      "title": "Generate Message"
+    },
+    "generating": {
+      "title": "Generating..."
+    }
+  },
+  "modal": {
+    "title": "Generated Message",
+    "closeButton": "Close"
+  },
+  "errorMessages": {
+    "selectInterest": "Please select at least one interest.",
+    "selectTone": "Please select the message tone.",
+    "success": "Message generated successfully!",
+    "apiError": "Error generating message. Please try again."
+  }
+}
