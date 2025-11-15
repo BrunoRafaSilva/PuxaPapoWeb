@@ -2,6 +2,7 @@ interface IApiConnection {
   interest: string[];
   period: string;
   tone: string;
+  language: string;
 }
 
 class ApiConnectionService {
@@ -32,6 +33,7 @@ class ApiConnectionService {
       interest: data.interest,
       period: data.period,
       tone: data.tone,
+      language: data.language,
     });
 
     const requestOptions: RequestInit = {

@@ -4,6 +4,7 @@ import { ChipSelect } from "../Components/ChipSelect";
 import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
 import { ApiStatus } from "../Components/ApiStatus";
+import { Footer } from "../Components/Footer";
 import Card from "@mui/material/Card";
 import { Alert, Box, Button, Modal, Snackbar, Typography } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
@@ -16,7 +17,6 @@ import {
   TONE_OPTIONS,
 } from "../Constants/ConstantLabelsOptions";
 import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
-import { FaLinkedin } from "react-icons/fa";
 
 function Index() {
   const { t, i18n } = useTranslation();
@@ -237,9 +237,7 @@ function Index() {
         </div>
       </main>
 
-      <footer className="w-full text-center p-8 text-sm bg-transparent">
-        <FaLinkedin />
-      </footer>
+      <Footer />
 
       <Modal
         open={showModal}
