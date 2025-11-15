@@ -43,7 +43,7 @@
     "title": "Mensagem Gerada",
     "closeButton": "Fechar"
   },
-  "messages": {
+  "errorMessages": {
     "selectInterest": "Por favor, selecione pelo menos um interesse.",
     "selectTone": "Por favor, selecione o tom da mensagem.",
     "success": "Mensagem gerada com sucesso!",

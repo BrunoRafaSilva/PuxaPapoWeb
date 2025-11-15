@@ -11,37 +11,21 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "flag-icons/css/flag-icons.min.css";
 import { LANGUAGE_OPTIONS } from "../Constants/ConstantLanguageOptions";
+import {
+  INTEREST_OPTIONS,
+  PERIOD_OPTIONS,
+  TONE_OPTIONS,
+} from "../Constants/ConstantLabelsOptions";
+import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
 
 function Index() {
   const { t, i18n } = useTranslation();
 
-  const interestOptions = [
-    { value: "1", label: t("form.interests.option1"), emoji: "⚽" },
-    { value: "2", label: t("form.interests.option2"), emoji: "🍖" },
-    { value: "3", label: t("form.interests.option3"), emoji: "🍺" },
-    { value: "4", label: t("form.interests.option4"), emoji: "🏖️" },
-    { value: "5", label: t("form.interests.option5"), emoji: "🎬" },
-    { value: "6", label: t("form.interests.option6"), emoji: "🎵" },
-    { value: "7", label: t("form.interests.option7"), emoji: "🎮" },
-    { value: "8", label: t("form.interests.option8"), emoji: "☕" },
-  ];
-  const periodOptions = [
-    { value: "1", label: t("form.period.option1") },
-    { value: "2", label: t("form.period.option2") },
-    { value: "3", label: t("form.period.option3") },
-    { value: "4", label: t("form.period.option4") },
-    { value: "5", label: t("form.period.option5") },
-  ];
-  const toneOptions = [
-    { value: "1", label: t("form.tone.option1") },
-    { value: "2", label: t("form.tone.option2") },
-    { value: "3", label: t("form.tone.option3") },
-    {
-      value: "4",
-      label: t("form.tone.option4"),
-      tooltip: t("form.tone.option4ToolTip"),
-    },
-  ];
+  const interestOptions = INTEREST_OPTIONS(t);
+  const periodOptions = PERIOD_OPTIONS(t);
+  const toneOptions = TONE_OPTIONS(t);
+  const snackbarMessages = SNACK_BAR_MESSAGES(t);
+
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string[]>([
     "qualquer dia da semana",
@@ -125,12 +109,12 @@ function Index() {
     event.preventDefault();
 
     if (selectedInterests.length === 0) {
-      showSnackbar(t("messages.selectInterest"), "warning");
+      showSnackbar(snackbarMessages.PLEASE_SELECT_INTEREST, "warning");
       return;
     }
 
     if (selectedTone.length === 0) {
-      showSnackbar(t("messages.selectTone"), "warning");
+      showSnackbar(snackbarMessages.PLEASE_SELECT_TONE, "warning");
       return;
     }
 
@@ -149,10 +133,10 @@ function Index() {
       setShowModal(true);
       setApiStatus("online");
       healthCheckIntervalRef.current = 30000;
-      showSnackbar(t("messages.success"), "success");
+      showSnackbar(snackbarMessages.MESSAGE_SUCCESS, "success");
     } catch (error) {
       setApiStatus("offline");
-      showSnackbar(t("messages.apiError"), "error");
+      showSnackbar(snackbarMessages.API_ERROR, "error");
       console.error("Erro:", error);
     } finally {
       setLoading(false);
@@ -225,7 +209,9 @@ function Index() {
                     type="submit"
                     disabled={loading}
                   >
-                    {loading ? t("form.generating.title") : t("form.generateButton.title")}
+                    {loading
+                      ? t("form.generating.title")
+                      : t("form.generateButton.title")}
                   </Button>
                 </div>
               </form>

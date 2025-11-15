@@ -1,6 +1,6 @@
-import { t } from "i18next";
+import { type TFunction } from "i18next";
 
-export const INTEREST_OPTIONS = [
+export const INTEREST_OPTIONS = (t: TFunction) => [
   { value: "1", label: t("form.interests.option1"), emoji: "⚽" },
   { value: "2", label: t("form.interests.option2"), emoji: "🍖" },
   { value: "3", label: t("form.interests.option3"), emoji: "🍺" },
@@ -11,7 +11,7 @@ export const INTEREST_OPTIONS = [
   { value: "8", label: t("form.interests.option8"), emoji: "☕" },
 ];
 
-export const PERIOD_OPTIONS = [
+export const PERIOD_OPTIONS = (t: TFunction) => [
   { value: "1", label: t("form.period.option1") },
   { value: "2", label: t("form.period.option2") },
   { value: "3", label: t("form.period.option3") },
@@ -19,7 +19,7 @@ export const PERIOD_OPTIONS = [
   { value: "5", label: t("form.period.option5") },
 ];
 
-export const TONE_OPTIONS = [
+export const TONE_OPTIONS = (t: TFunction) => [
   { value: "1", label: t("form.tone.option1") },
   { value: "2", label: t("form.tone.option2") },
   { value: "3", label: t("form.tone.option3") },
