@@ -13,8 +13,8 @@
 **Don't know how to start a conversation? I'll help you!**
 
 <div align="center">
-  <img src="./print/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
-  <img src="./print/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
+  <img src="./prints/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
+  <img src="./prints/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
 </div>
 
 An intelligent web application that generates personalized messages to start conversations based on interests, schedules, and tone of communication.

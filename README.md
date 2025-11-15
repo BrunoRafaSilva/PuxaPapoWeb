@@ -13,8 +13,8 @@
 **Não sabe como puxar papo? Eu te ajudo!**
 
 <div align="center">
-  <img src="./print/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
-  <img src="./print/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
+  <img src="./prints/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
+  <img src="./prints/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
 </div>
 
 Uma aplicação web inteligente que gera mensagens personalizadas para iniciar conversas com base em interesses, horários e tom de comunicação.
