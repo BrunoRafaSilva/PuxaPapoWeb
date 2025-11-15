@@ -125,6 +125,7 @@ function Index() {
         interest: selectedInterests,
         period: selectedPeriod[0] || "",
         tone: selectedTone[0] || "",
+        language: selectedLanguage,
       };
 
       const result = await ApiConnection.generatePrompt(apiData);
