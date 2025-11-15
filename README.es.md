@@ -13,8 +13,8 @@
 **¿No sabes cómo empezar una conversación? ¡Te ayudo!**
 
 <div align="center">
-  <img src="./print/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
-  <img src="./print/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
+  <img src="./prints/print1.png" alt="PuxaPapo Screenshot 1" width="45%">
+  <img src="./prints/print2.png" alt="PuxaPapo Screenshot 2" width="45%">
 </div>
 
 Una aplicación web inteligente que genera mensajes personalizados para iniciar conversaciones basadas en intereses, horarios y tono de comunicación.
