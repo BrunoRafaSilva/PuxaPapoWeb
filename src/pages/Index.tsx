@@ -4,11 +4,10 @@ import { ChipSelect } from "../Components/ChipSelect";
 import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
 import { ApiStatus } from "../Components/ApiStatus";
+import { ResultModal } from "../Components/ResultModal";
 import Card from "@mui/material/Card";
-import { Alert, Button, Modal, Snackbar, Typography } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import "flag-icons/css/flag-icons.min.css";
 import { LANGUAGE_OPTIONS } from "../Constants/ConstantLanguageOptions";
 import {
@@ -220,22 +219,11 @@ function Index() {
           </div>
         </div>
       </main>
-      <Modal open={showModal} onClose={() => setShowModal(false)}>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg max-w-2xl max-h-[80vh] overflow-y-auto">
-          <Typography variant="h6" className="mb-4">
-            {t("modal.title")}
-          </Typography>
-          <div className="mb-4 whitespace-pre-line bg-gray-50 p-4 rounded border">
-            <Typography style={{ whiteSpace: "pre-line" }}>
-              {/* {apiResult} */}
-              <Markdown remarkPlugins={[remarkGfm]}>{apiResult}</Markdown>
-            </Typography>
-          </div>
-          <Button onClick={() => setShowModal(false)} variant="contained">
-            {t("modal.closeButton")}
-          </Button>
-        </div>
-      </Modal>
+      <ResultModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        content={apiResult}
+      />
 
       <Snackbar
         open={snackbarOpen}
