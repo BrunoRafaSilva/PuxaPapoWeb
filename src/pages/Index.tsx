@@ -4,16 +4,20 @@ import { Header } from "../Components/Header";
 import { LabelOption } from "../Components/LabelOption";
 import { ApiStatus } from "../Components/ApiStatus";
 import Card from "@mui/material/Card";
-import { Alert, Button, Modal, Snackbar, Typography } from "@mui/material";
+import { Alert, Button, Modal, Snackbar, Typography, Menu, MenuItem } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import "flag-icons/css/flag-icons.min.css";
 import {
   INTEREST_OPTIONS,
   PERIOD_OPTIONS,
   TONE_OPTIONS,
 } from "../Constants/ConstantLabelsOptions";
 import { SNACK_BAR_MESSAGES } from "../Constants/ConstantValidationErrors";
+import FlagBrasil from "../assets/flag-brasil.svg";
+import FlagEUA from "../assets/flag-eua.svg";
+import FlagSpain from "../assets/flag-spain-mex.svg";
 
 function Index() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -32,8 +36,29 @@ function Index() {
   const [apiStatus, setApiStatus] = useState<"online" | "offline" | "checking">(
     "checking"
   );
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("pt-BR");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const healthCheckIntervalRef = useRef<number>(30000);
   const timeoutIdRef = useRef<number | null>(null);
+
+  const languages = [
+    { code: "pt-BR", name: "Português", flag: FlagBrasil },
+    { code: "en-US", name: "English", flag: FlagEUA },
+    { code: "es-ES", name: "Español", flag: FlagSpain },
+  ];
+
+  const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleLanguageClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLanguageSelect = (code: string) => {
+    setSelectedLanguage(code);
+    handleLanguageClose();
+  };
 
   const checkApiHealth = async () => {
     try {
@@ -140,7 +165,46 @@ function Index() {
           <div>
             <Card className="p-4">
               <form onSubmit={handleSubmit}>
-                <div className="p-4">
+                {/* Seletor de Idioma - Compacto com Bandeiras SVG */}
+                <div className="flex justify-end items-center gap-2 mb-2">
+                  <span className="text-sm">Idioma:</span>
+                  <button
+                    type="button"
+                    onClick={handleLanguageClick}
+                    className="text-sm px-3 py-2 rounded border border-gray-300 bg-white hover:border-blue-400 focus:border-blue-500 focus:outline-none transition-colors cursor-pointer min-w-[140px] flex items-center justify-between"
+                  >
+                    <span className="flex items-center gap-2">
+                      <img
+                        src={languages.find((lang) => lang.code === selectedLanguage)?.flag}
+                        alt="Flag"
+                        className="w-6 h-4 object-cover"
+                      />
+                      {languages.find((lang) => lang.code === selectedLanguage)?.name}
+                    </span>
+                    <span className="ml-2 text-xs">▼</span>
+                  </button>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleLanguageClose}
+                  >
+                    {languages.map((lang) => (
+                      <MenuItem
+                        key={lang.code}
+                        onClick={() => handleLanguageSelect(lang.code)}
+                        selected={selectedLanguage === lang.code}
+                      >
+                        <img
+                          src={lang.flag}
+                          alt={lang.name}
+                          className="w-6 h-4 object-cover mr-2"
+                        />
+                        {lang.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </div>
+                <div className="p-4 -mt-6">
                   <LabelOption title="Interesses" />
                 </div>
                 <div className="p-2">
