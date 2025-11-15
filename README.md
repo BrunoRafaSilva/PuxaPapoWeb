@@ -388,4 +388,3 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 Feito com ❤️ por [Bruno Silva](https://github.com/BrunoRafaSilva)
 
 </div>
-```
