@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import { Alert, Box, Button, Modal, Snackbar, Typography } from "@mui/material";
 import { ApiConnection } from "../Services/ApiConnectionService";
 import MarkdownPreview from "@uiw/react-markdown-preview";
+import "@uiw/react-markdown-preview/markdown.css";
 import "flag-icons/css/flag-icons.min.css";
 import { LANGUAGE_OPTIONS } from "../Constants/ConstantLanguageOptions";
 import {
